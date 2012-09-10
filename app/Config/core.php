@@ -230,7 +230,9 @@
  * any date & time related errors.
  */
 	//date_default_timezone_set('UTC');
-
+if(file_exists(APP . 'Config/core.local.php')){
+  include_once(APP . 'Config/core.local.php');
+}
 /**
  * Pick the caching engine to use.  If APC is enabled use it.
  * If running via cli - apc is disabled by default. ensure it's available and enabled in this case
