@@ -101,7 +101,7 @@ class User extends AppModel {
 	function findByEmailAndPassword($email, $password){
 		return $this->find('first', array(
 			'conditions' => array(
-				'email' => $username_or_email,
+				'email' => $email,
 				'password' => $password
 			),
 			'recursive' => -1
