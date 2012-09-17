@@ -6,13 +6,45 @@ App::uses('AppController', 'Controller');
  * @property User $User
  */
 class UsersController extends AppController {
+	
+	public $components = array('Cookie');
 
-/**
- * index method
- *
- * @return void
- */
-	public function index() {
+	
+	public function login() {
+		$this->loginLogic();
+  }
+  
+  public function contractor_login(){
+  	$this->setAction('login');
+  }
+  
+  public function admin_login(){
+  	$this->setAction('login');
+  }
+  
+  public function logout() {
+    $this->infoFlash('You\'ve been sucessfully logged out.');
+    @$this->Cookie->delete('Auth.User');
+    $this->redirect($this->Auth->logout());
+  }
+  
+  public function account(){
+  	$user_id = $this->Auth->user('id');
+  	$this->set('users', $this->User->findById($user_id));
+  }
+  
+  public function register(){
+  	if($this->Auth->user()){
+  		$this->redirect(array('action' => 'account']));
+  	}
+  	if(!empty($this->request->data)){
+  		if($this->User->register($this->request->data)){
+  			
+  		}
+  	}
+  }
+
+	public function admin_index() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->paginate());
 	}
@@ -24,7 +56,7 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
@@ -37,7 +69,7 @@ class UsersController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
@@ -58,7 +90,7 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		$this->User->id = $id;
 		if (!$this->User->exists()) {
 			throw new NotFoundException(__('Invalid user'));
@@ -85,7 +117,7 @@ class UsersController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}
@@ -99,5 +131,38 @@ class UsersController extends AppController {
 		}
 		$this->Session->setFlash(__('User was not deleted'));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	private function loginLogic($do_redirect = true, $cookie_length = '+4 weeks'){
+		//-- code inside this function will execute only when autoRedirect was set to false (i.e. in a beforeFilter).
+		if ($this->request->is('post')) {
+			if (!$this->Auth->login()) {
+				$this->badFlash('Username or password is incorrect');
+			}
+    }
+		
+		if($this->Auth->user()) {
+			if(!empty($this->request->data)) {
+				$cookie = array();
+        $cookie['email'] = $this->request->data['User']['email'];
+        $cookie['password'] = Security::hash($this->request->data['User']['password'], null, true);
+        $this->Cookie->write('Auth.User', $cookie, false, $cookie_length);
+			}
+			if($do_redirect){
+				$this->redirect($this->Auth->redirect());
+			}
+		}
+		if(empty($this->request->data)) {
+			$cookie = $this->Cookie->read('Auth.User');
+			if($cookie && $user = $this->User->findByEmailAndPassword($cookie['email'], $cookie['password'])) {
+				if($this->Auth->login($user['User'])) {
+					//  Clear auth message, just in case we use it.
+					$this->Session->delete('Message.auth');
+					if($do_redirect){
+						$this->redirect($this->Auth->redirect());
+					}
+				}
+			}
+		}
 	}
 }

@@ -12,7 +12,7 @@ class ContractorsController extends AppController {
  *
  * @return void
  */
-	public function index() {
+	public function admin_index() {
 		$this->Contractor->recursive = 0;
 		$this->set('contractors', $this->paginate());
 	}
@@ -24,7 +24,7 @@ class ContractorsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function view($id = null) {
+	public function admin_view($id = null) {
 		$this->Contractor->id = $id;
 		if (!$this->Contractor->exists()) {
 			throw new NotFoundException(__('Invalid contractor'));
@@ -37,7 +37,7 @@ class ContractorsController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function admin_add() {
 		if ($this->request->is('post')) {
 			$this->Contractor->create();
 			if ($this->Contractor->save($this->request->data)) {
@@ -56,7 +56,7 @@ class ContractorsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function admin_edit($id = null) {
 		$this->Contractor->id = $id;
 		if (!$this->Contractor->exists()) {
 			throw new NotFoundException(__('Invalid contractor'));
@@ -81,7 +81,7 @@ class ContractorsController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function admin_delete($id = null) {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}

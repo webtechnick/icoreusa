@@ -1,5 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Security', 'Utility');
 /**
  * User Model
  *
@@ -81,4 +82,20 @@ class User extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	/**
+	* Find the user by email or username
+	* @param username_or_email
+	* @param password
+	* @return user found, or null
+	*/
+	function findByEmailAndPassword($email, $password){
+		return $this->find('first', array(
+			'conditions' => array(
+				'email' => $username_or_email,
+				'password' => $password
+			),
+			'recursive' => -1
+		));
+	}
 }
