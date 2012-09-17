@@ -1,0 +1,49 @@
+.clear {
+	clear: both;
+}
+div.right, .float-right {
+	float: right;
+}
+div.center, .center {
+	text-align: center;
+	margin: auto;
+}
+div.left, .float-left{
+	float: left;
+}
+/* flash */
+div#flash-message img {
+  vertical-align: middle;
+}
+div#bad-flash, div#good-flash, div#info-flash, div#authMessage {
+  cursor: pointer;
+  width:90%;
+  font-family: arial, sans-serif;
+  font-size: 20px;
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid black;
+  
+}
+div#bad-flash, div#authMessage {
+  color: white;
+  background: maroon;
+}
+div#good-flash {
+  color: white;
+  background: green;
+}
+div#info-flash {
+  color: white;
+  background: blue;
+}
+div#authMessage {
+	cursor: auto;
+}
+#top-nav a {
+	color: white;
+}
+#top-nav a:hover {
+	color: white;
+}

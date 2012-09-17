@@ -4,3 +4,6 @@
 [submodule "app/Plugin/Migrations"]
 	path = app/Plugin/Migrations
 	url = git://github.com/CakeDC/migrations.git
+[submodule "app/Plugin/WebTechNick"]
+	path = app/Plugin/WebTechNick
+	url = git@github.com:webtechnick/CakePHP-WebTechNick-Plugin.git

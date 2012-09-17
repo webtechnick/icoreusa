@@ -6,6 +6,11 @@ App::uses('AppController', 'Controller');
  * @property Contractor $Contractor
  */
 class ContractorsController extends AppController {
+	
+	public function index(){
+		$this->Contractor->recursive = 0;
+		$this->set('contractors', $this->paginate());
+	}
 
 /**
  * index method

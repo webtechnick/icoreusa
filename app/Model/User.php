@@ -17,11 +17,11 @@ class User extends AppModel {
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please use a valid email address'
+			),
+			'unique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'Email already taken'
 			),
 		),
 		'password' => array(
@@ -83,6 +83,15 @@ class User extends AppModel {
 		)
 	);
 	
+	public function register($data){
+		if($data['User']['password'] != $data['User']['confirm_password']){
+			$this->invalidate('password', 'Password and Confirmation Password don\'t match.');
+			return false;
+		}
+		$data['User']['password'] = $this->hashPassword($data['User']['password']);
+		return $this->save($data);
+	}
+	
 	/**
 	* Find the user by email or username
 	* @param username_or_email
@@ -97,5 +106,14 @@ class User extends AppModel {
 			),
 			'recursive' => -1
 		));
+	}
+	
+	/**
+	* Hash the password.
+	* @param string to hash
+	* @return string hashed password.
+	*/
+	function hashPassword($password){
+		return Security::hash($password, null, true);
 	}
 }

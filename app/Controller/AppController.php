@@ -18,6 +18,9 @@ class AppController extends Controller {
     ),
 		'DebugKit.Toolbar',
 	);
+	public $helpers = array(
+		'WebTechNick.Google'
+	);
 	
 	public function beforeFilter(){
 		if(isset($this->request->query['fullsite']) && $this->request->query['fullsite']){

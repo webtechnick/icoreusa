@@ -8,8 +8,12 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 	
 	public $components = array('Cookie');
-
 	
+	public function beforeFilter(){
+		$this->Auth->allow('register');
+		parent::beforeFilter();
+	}
+
 	public function login() {
 		$this->loginLogic();
   }
@@ -29,17 +33,26 @@ class UsersController extends AppController {
   }
   
   public function account(){
-  	$user_id = $this->Auth->user('id');
-  	$this->set('users', $this->User->findById($user_id));
+  	if($this->request->is('put')){
+  		if($this->User->save($this->request->data)){
+  			$this->goodFlash('Succesfully Updated');
+  		} else {
+  			$this->badFlash('Unable to Update');
+  		}
+  	}
+  	$this->request->data = $this->User->findById($this->Auth->user('id'));
   }
   
   public function register(){
   	if($this->Auth->user()){
-  		$this->redirect(array('action' => 'account']));
+  		$this->redirect(array('action' => 'account'));
   	}
   	if(!empty($this->request->data)){
   		if($this->User->register($this->request->data)){
-  			
+  			$this->goodFlash('Succesful registration please login now');
+  			$this->redirect(array('action' => 'login'));
+  		} else {
+  			$this->badFlash('Errors, please fix below');
   		}
   	}
   }
