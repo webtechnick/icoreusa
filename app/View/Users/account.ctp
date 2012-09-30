@@ -1,4 +1,4 @@
-<h1>Account</h1>
+<h2>Account</h2>
 <?php echo $this->Form->create('User'); ?>
 <?php echo $this->Form->input('id'); ?>
 <?php echo $this->Form->input('email'); ?>

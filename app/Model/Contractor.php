@@ -111,5 +111,7 @@ class Contractor extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	
+	public $searchFields = array('first_name','last_name','email','phone_number','description');
 
 }

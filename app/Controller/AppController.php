@@ -7,7 +7,7 @@ class AppController extends Controller {
       'authorize' => array('Controller'),
       'loginAction' => array('controller' => 'users', 'action' => 'login'),
       'allowedActions' => array('search','view','index','get','display'),
-      'logoutRedirect' => array('controller' => 'pages', 'action' => 'home'),
+      'logoutRedirect' => array('controller' => 'contractors', 'action' => 'index'),
       'authError' => 'Please Login',
       'autoRedirect' => false,
       'authenticate' => array(

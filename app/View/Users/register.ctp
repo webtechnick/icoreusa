@@ -1,4 +1,4 @@
-<h1>Register</h1>
+<h2>Register</h2>
 <?php echo $this->Form->create('User'); ?>
 <?php echo $this->Form->input('email'); ?>
 <?php echo $this->Form->input('password'); ?>

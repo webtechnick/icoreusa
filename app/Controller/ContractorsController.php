@@ -7,9 +7,13 @@ App::uses('AppController', 'Controller');
  */
 class ContractorsController extends AppController {
 	
-	public function index(){
-		$this->Contractor->recursive = 0;
-		$this->set('contractors', $this->paginate());
+	public function index($filter = null){
+		if(!empty($this->request->data)){
+			$filter = $this->request->data['Contractor']['filter'];
+		}
+		$conditions = $this->Contractor->generateFilterConditions($filter);
+		$this->set('contractors',$this->paginate('Contractor',$conditions));
+		$this->set('filter', $filter);
 	}
 
 /**

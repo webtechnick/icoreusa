@@ -31,4 +31,21 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	public $actsAs = array('Containable');
+	public $searchFields = array();
+	
+	/**
+	* return conditions based on searchable fields and filter
+	* @param string filter
+	* @return conditions array
+	*/
+	function generateFilterConditions($filter = null, $pre = ''){
+		$retval = array();
+		if($filter){
+			foreach($this->searchFields as $field){
+				$retval['OR']["$field LIKE"] = $pre . $filter . '%';
+			}
+		}
+		return $retval;
+	}
 }
