@@ -133,9 +133,8 @@ th {
 	padding:4px;
 }
 th a {
-	display: block;
-	padding: 2px 4px;
 	text-decoration: none;
+	text-transform: uppercase;
 }
 th a.asc:after {
 	content: ' ⇣';

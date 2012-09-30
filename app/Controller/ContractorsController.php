@@ -7,6 +7,12 @@ App::uses('AppController', 'Controller');
  */
 class ContractorsController extends AppController {
 	
+	public $paginate = array(
+		'Contractor' => array(
+			'limit' => 1
+		)
+	);
+	
 	public function index($filter = null){
 		if(!empty($this->request->data)){
 			$filter = $this->request->data['Contractor']['filter'];
