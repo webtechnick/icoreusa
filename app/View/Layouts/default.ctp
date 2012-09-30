@@ -9,9 +9,9 @@
 	<?php
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('style');
-		//echo $this->Google->load('jquery');
-		//echo $this->Google->load('jqueryui');
-		//echo $this->Html->css('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css');
+		echo $this->Google->load('jquery');
+		echo $this->Google->load('jqueryui');
+		echo $this->Html->css('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css');
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');

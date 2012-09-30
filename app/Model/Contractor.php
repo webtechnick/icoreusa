@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  * @property User $User
  */
 class Contractor extends AppModel {
+	
+	public $displayField = 'email';
 
 /**
  * Validation rules
@@ -17,61 +19,36 @@ class Contractor extends AppModel {
 		'first_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please enter your first name',
 			),
 		),
 		'last_name' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please enter your last name',
 			),
 		),
 		'phone_number' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please enter a phone number, will be shown to clients.'
 			),
 		),
 		'email' => array(
 			'email' => array(
 				'rule' => array('email'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Must be a valid email, will be shown to clients',
 			),
 		),
 		'description' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+				'message' => 'Please fill out a short bio about yourself',
 			),
 		),
 		'is_full' => array(
 			'boolean' => array(
 				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);
@@ -113,5 +90,29 @@ class Contractor extends AppModel {
 	);
 	
 	public $searchFields = array('first_name','last_name','email','phone_number','description');
+	
+	/**
+	* Upgrade a contractor account
+	* @param int id
+	*/
+	public function upgrade($id = null){
+		if($id) $this->id = $id;
+		if($this->exists()){
+			return $this->saveField('is_full', true);
+		}
+		return false;
+	}
+	
+	/**
+	* Downgrade a contractor account
+	* @param int id of contractor
+	*/
+	public function downgrade($id = null){
+		if($id) $this->id = $id;
+		if($this->exists()){
+			return $this->saveField('is_full', false);
+		}
+		return false;
+	}
 
 }

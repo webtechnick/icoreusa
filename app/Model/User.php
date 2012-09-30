@@ -7,6 +7,8 @@ App::uses('Security', 'Utility');
  * @property Contractor $Contractor
  */
 class User extends AppModel {
+	
+	public $displayField = 'email';
 
 /**
  * Validation rules
@@ -27,41 +29,21 @@ class User extends AppModel {
 		'password' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'is_admin' => array(
 			'boolean' => array(
 				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'is_contractor' => array(
 			'boolean' => array(
 				'rule' => array('boolean'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 		'contractor_id' => array(
 			'numeric' => array(
 				'rule' => array('numeric'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
 	);
@@ -82,6 +64,19 @@ class User extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	/**
+	* If the user hasn't filled out their first name, assume they're not filling out the
+	* contractor part of the user integration, and ignore it with validations
+	*/
+	public function saveAll($data, $options = array()){
+		if(isset($data['Contractor']['first_name']) && empty($data['Contractor']['first_name'])){
+			unset($data['Contractor']);
+		} else {
+			$data['User']['is_contractor'] = true;
+		}
+		return parent::saveAll($data, $options);
+	}
 	
 	public function register($data){
 		if($data['User']['password'] != $data['User']['confirm_password']){

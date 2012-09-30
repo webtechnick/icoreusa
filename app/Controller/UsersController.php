@@ -34,7 +34,7 @@ class UsersController extends AppController {
   
   public function account(){
   	if($this->request->is('put')){
-  		if($this->User->save($this->request->data)){
+  		if($this->User->saveAll($this->request->data)){
   			$this->goodFlash('Succesfully Updated');
   		} else {
   			$this->badFlash('Unable to Update');
