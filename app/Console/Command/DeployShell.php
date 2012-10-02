@@ -47,7 +47,7 @@ class DeployShell extends AppShell {
 		$this->ssh_exec("git submodule init");
 		$this->ssh_exec("git submodule update");
 		$this->ssh_setpath("/home/icoreusa/public_html/app");
-		$this->ssh_exec("cake Migrations.migration run all");
+		$this->ssh_exec("/home/icoreusa/public_html/lib/Cake/Console/cake Migrations.migration run all");
 	}
 
   /**
