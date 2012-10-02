@@ -778,3 +778,9 @@ tr.click {
 tr.click:hover {
 	background: #530505;
 }
+.contractor img {
+	margin: 15px;
+}
+.contractor {
+	font-size: 1.5em;
+}

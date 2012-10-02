@@ -8,6 +8,8 @@
 			<th><?php echo $this->Paginator->sort('phone_number'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
+			<th><?php echo $this->Paginator->sort('image_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('is_full'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
@@ -22,6 +24,12 @@
 		<td><?php echo h($contractor['Contractor']['phone_number']); ?>&nbsp;</td>
 		<td><?php echo h($contractor['Contractor']['email']); ?>&nbsp;</td>
 		<td><?php echo h($contractor['Contractor']['description']); ?>&nbsp;</td>
+		<td>
+			<?php echo $this->Html->link($contractor['Image']['name'], array('controller' => 'uploads', 'action' => 'view', $contractor['Image']['id'])); ?>
+		</td>
+		<td>
+			<?php echo $this->Html->link($contractor['User']['email'], array('controller' => 'users', 'action' => 'view', $contractor['User']['id'])); ?>
+		</td>
 		<td><?php echo h($contractor['Contractor']['is_full']); ?>&nbsp;</td>
 		<td><?php echo h($contractor['Contractor']['created']); ?>&nbsp;</td>
 		<td><?php echo h($contractor['Contractor']['modified']); ?>&nbsp;</td>
@@ -53,7 +61,7 @@
 	<ul>
 		<li><?php echo $this->Html->link(__('New Contractor'), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Uploads'), array('controller' => 'uploads', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Upload'), array('controller' => 'uploads', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'uploads', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>

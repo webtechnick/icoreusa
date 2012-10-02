@@ -14,6 +14,9 @@
 	<?php $id = $contractor['Contractor']['id']; ?>
 	<tr class="click" onclick="location.href='/contractors/view/<?php echo $id; ?>'">
 		<td>
+			<?php if(!empty($contractor['Image']['id'])): ?>
+				<?php echo $this->FileUpload->image($contractor['Image']['name'], 100); ?><br />
+			<?php endif; ?>
 			<?php echo h($contractor['Contractor']['first_name']); ?>&nbsp;
 			<?php echo h($contractor['Contractor']['last_name']); ?>
 		</td>

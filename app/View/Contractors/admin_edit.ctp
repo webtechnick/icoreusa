@@ -9,6 +9,8 @@
 		echo $this->Form->input('phone_number');
 		echo $this->Form->input('email');
 		echo $this->Form->input('description');
+		echo $this->Form->input('image_id');
+		echo $this->Form->input('user_id');
 		echo $this->Form->input('is_full');
 	?>
 	</fieldset>
@@ -21,7 +23,7 @@
 		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Contractor.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Contractor.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Contractors'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Uploads'), array('controller' => 'uploads', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Upload'), array('controller' => 'uploads', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'uploads', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Users'), array('controller' => 'users', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('controller' => 'users', 'action' => 'add')); ?> </li>
 	</ul>

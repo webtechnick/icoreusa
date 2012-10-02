@@ -8,7 +8,7 @@
 <?php echo $this->Form->input('Contractor.phone_number'); ?>
 <?php echo $this->Form->input('Contractor.description'); ?>
 <?php if(!empty($this->request->data['Image']['id'])): ?>
-	<?php echo $this->FileUpload->image($this->request->data['Image']['name'], 100); ?>
+	<?php echo $this->FileUpload->image($this->request->data['Image']['name'], 200); ?>
 <?php endif; ?>
 <?php echo $this->Form->input('Image.file', array('type' => 'file')); ?>
 <?php echo $this->Form->end('Update'); ?>

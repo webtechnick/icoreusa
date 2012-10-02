@@ -7,7 +7,6 @@
 		echo $this->Form->input('password');
 		echo $this->Form->input('is_admin');
 		echo $this->Form->input('is_contractor');
-		echo $this->Form->input('contractor_id');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

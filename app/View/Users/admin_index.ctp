@@ -7,7 +7,6 @@
 			<th><?php echo $this->Paginator->sort('password'); ?></th>
 			<th><?php echo $this->Paginator->sort('is_admin'); ?></th>
 			<th><?php echo $this->Paginator->sort('is_contractor'); ?></th>
-			<th><?php echo $this->Paginator->sort('contractor_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -20,9 +19,6 @@
 		<td><?php echo h($user['User']['password']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['is_admin']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['is_contractor']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($user['Contractor']['id'], array('controller' => 'contractors', 'action' => 'view', $user['Contractor']['id'])); ?>
-		</td>
 		<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
 		<td><?php echo h($user['User']['modified']); ?>&nbsp;</td>
 		<td class="actions">
