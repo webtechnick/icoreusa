@@ -1,0 +1,38 @@
+body {
+	width: 100%;
+}
+.button {
+	display: block;
+	width: 130px;
+	margin-right: 2px;
+	height: 25px;
+	float: left;
+	text-align: center;
+}
+#top-nav {
+	margin: auto;
+	text-align: center;
+}
+h2 {
+	background: url('/img/header_mobile.png') no-repeat;
+	padding: 3px 0px 0px 0px;
+	margin: auto;
+	width: 275px;
+	height: 38px;
+	text-align: center;
+	font-size: 1.7em;
+}
+.contractors table {
+	width: 100%;
+}
+.image {
+	text-align: center;
+}
+#top-search {
+	text-align: center;
+	float: none;
+	width: 100%;
+}
+#top-search input[type=text] {
+	width: 150px;
+}
