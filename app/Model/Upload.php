@@ -6,6 +6,8 @@ App::uses('AppModel', 'Model');
  * @property Contractor $Contractor
  */
 class Upload extends AppModel {
+	
+	public $actsAs = array('Icing.FileUpload');
 
 /**
  * Validation rules

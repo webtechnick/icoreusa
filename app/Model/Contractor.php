@@ -74,23 +74,21 @@ class Contractor extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'User' => array(
-			'className' => 'User',
-			'foreignKey' => 'contractor_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+	);
+	
+	public $belongsTo = array(
+		'User',
+		'Image' => array(
+			'className' => 'Upload',
+			'foreignKey' => 'image_id'
+		),
 	);
 	
 	public $searchFields = array('first_name','last_name','email','phone_number','description');
 	
+	public function saveAll($data, $options = array()){
+		return parent::saveAll($data, $options);
+	}
 	/**
 	* Upgrade a contractor account
 	* @param int id

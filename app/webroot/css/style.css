@@ -772,3 +772,9 @@ pre {
 #top-nav {
 	margin-top: 20px;
 }
+tr.click {
+	cursor: pointer;
+}
+tr.click:hover {
+	background: #530505;
+}

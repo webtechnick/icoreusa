@@ -15,6 +15,8 @@ class AppSchema extends CakeSchema {
 		'phone_number' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 10, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'email' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'description' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'image_id' => array('type' => 'integer', 'null' => false, 'default' => null),
+		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'is_full' => array('type' => 'boolean', 'null' => false, 'default' => null),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
@@ -52,7 +54,6 @@ class AppSchema extends CakeSchema {
 		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'is_admin' => array('type' => 'boolean', 'null' => false, 'default' => null),
 		'is_contractor' => array('type' => 'boolean', 'null' => false, 'default' => null),
-		'contractor_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(

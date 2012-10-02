@@ -40,7 +40,12 @@ class UsersController extends AppController {
   			$this->badFlash('Unable to Update');
   		}
   	}
-  	$this->request->data = $this->User->findById($this->Auth->user('id'));
+  	$this->request->data = $this->User->find('first', array(
+  		'conditions' => array(
+  			'User.id' => $this->Auth->user('id') 
+  		),
+  		'contain' => array('Contractor.Image')
+  	));
   }
   
   public function register(){

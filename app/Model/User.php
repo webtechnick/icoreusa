@@ -36,16 +36,6 @@ class User extends AppModel {
 				'rule' => array('boolean'),
 			),
 		),
-		'is_contractor' => array(
-			'boolean' => array(
-				'rule' => array('boolean'),
-			),
-		),
-		'contractor_id' => array(
-			'numeric' => array(
-				'rule' => array('numeric'),
-			),
-		),
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -55,28 +45,9 @@ class User extends AppModel {
  *
  * @var array
  */
-	public $belongsTo = array(
-		'Contractor' => array(
-			'className' => 'Contractor',
-			'foreignKey' => 'contractor_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+	public $hasOne = array(
+		'Contractor'
 	);
-	
-	/**
-	* If the user hasn't filled out their first name, assume they're not filling out the
-	* contractor part of the user integration, and ignore it with validations
-	*/
-	public function saveAll($data, $options = array()){
-		if(isset($data['Contractor']['first_name']) && empty($data['Contractor']['first_name'])){
-			unset($data['Contractor']);
-		} else {
-			$data['User']['is_contractor'] = true;
-		}
-		return parent::saveAll($data, $options);
-	}
 	
 	public function register($data){
 		if($data['User']['password'] != $data['User']['confirm_password']){

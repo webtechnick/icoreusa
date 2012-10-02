@@ -10,9 +10,9 @@
 			</th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
 	</tr>
-	<?php
-	foreach ($contractors as $contractor): ?>
-	<tr>
+	<?php	foreach ($contractors as $contractor): ?>
+	<?php $id = $contractor['Contractor']['id']; ?>
+	<tr class="click" onclick="location.href='/contractors/view/<?php echo $id; ?>'">
 		<td>
 			<?php echo h($contractor['Contractor']['first_name']); ?>&nbsp;
 			<?php echo h($contractor['Contractor']['last_name']); ?>
@@ -21,7 +21,7 @@
 			<?php echo h($contractor['Contractor']['phone_number']); ?><br />
 			<?php echo h($contractor['Contractor']['email']); ?>
 		</td>
-		<td><?php echo h($contractor['Contractor']['description']); ?>&nbsp;</td>
+		<td><?php echo h($this->Text->truncate($contractor['Contractor']['description'])); ?>&nbsp;</td>
 	</tr>
 <?php endforeach; ?>
 	</table>

@@ -7,9 +7,11 @@ App::uses('AppController', 'Controller');
  */
 class ContractorsController extends AppController {
 	
+	public $helpers = array('Icing.FileUpload');
+	
 	public $paginate = array(
 		'Contractor' => array(
-			'limit' => 1
+			'limit' => 10
 		)
 	);
 	
@@ -21,6 +23,31 @@ class ContractorsController extends AppController {
 		$this->set('contractors',$this->paginate('Contractor',$conditions));
 		$this->set('filter', $filter);
 	}
+	
+	public function view($id = null){
+		$this->Contractor->id = $id;
+		if (!$this->Contractor->exists()) {
+			$this->badFlash('Contractor Not Found');
+			$this->redirect(array('action' => 'index'));
+		}
+		$this->set('contractor', $this->Contractor->read(null, $id));
+	}
+	
+	public function edit(){
+  	if($this->request->is('put')){
+  		if($this->Contractor->saveAll($this->request->data)){
+  			$this->goodFlash('Succesfully Updated');
+  		} else {
+  			$this->badFlash('Unable to Update');
+  		}
+  	}
+  	$this->request->data = $this->Contractor->find('first', array(
+  		'conditions' => array(
+  			'Contractor.user_id' => $this->Auth->user('id') 
+  		),
+  		'contain' => array('Image','Upload')
+  	));
+  }
 
 /**
  * index method

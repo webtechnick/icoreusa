@@ -7,3 +7,6 @@
 [submodule "app/Plugin/WebTechNick"]
 	path = app/Plugin/WebTechNick
 	url = git@github.com:webtechnick/CakePHP-WebTechNick-Plugin.git
+[submodule "app/Plugin/Icing"]
+	path = app/Plugin/Icing
+	url = git@github.com:AudiologyHoldings/Icing.git

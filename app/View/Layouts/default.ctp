@@ -31,6 +31,7 @@
 					<?php echo $this->Html->link('Register', array('admin' => false, 'controller' => 'users', 'action' => 'register'), array('class' => 'button red')); ?>
 				<?php else: ?>
 					<?php echo $this->Html->link('Account', array('admin' => false, 'controller' => 'users', 'action' => 'account'), array('class' => 'button red')); ?>
+					<?php echo $this->Html->link('Profile', array('admin' => false, 'controller' => 'contractors', 'action' => 'edit'), array('class' => 'button grey')); ?>
 					<?php echo $this->Html->link('Logout', array('admin' => false, 'controller' => 'users', 'action' => 'logout'), array('class' => 'button grey')); ?>
 					<?php if($isadmin): ?>
 						<?php echo $this->Html->link('Admin', array('admin' => true, 'controller' => 'users', 'action' => 'index'), array('class' => 'button grey')); ?>
