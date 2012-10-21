@@ -13,11 +13,11 @@
 			<?php echo h($contractor['Contractor']['first_name']); ?> <?php echo h($contractor['Contractor']['last_name']); ?><br />
 			<?php echo h($contractor['Contractor']['phone_number']); ?><br />
 			<?php echo h($contractor['Contractor']['email']); ?><br /><br /><br />
-			<h3>Bio</h3>
+			<h2>Bio</h2>
 			<?php echo h($contractor['Contractor']['description']); ?>
 			<br /><br />
-			<h3>Images</h3>
-			<div id="images">
+			<h2>Images</h2>
+			<div id="images" class="center">
 				<?php for($i = 1; $i <= count($contractor['Upload']); $i++): ?>
 					<div title="<?php echo $i; ?>"><?php echo $this->FileUpload->image($contractor['Upload'][$i - 1]['name'], 500) ?></div>
 				<?php endfor; ?>
@@ -25,9 +25,11 @@
 		</div>
 	</div>
 </div>
-<?php echo $this->Js->buffer('
-	jQuery("#images").jshowoff({
-	 controlText: {next: "Next", previous:"Previous"},
-	 speed: 5000
-	});
-'); ?>
+<?php if(!empty($contractor['Upload'])): ?>
+	<?php echo $this->Js->buffer('
+		jQuery("#images").jshowoff({
+		 controlText: {next: "Next", previous:"Previous"},
+		 speed: 5000
+		});
+	'); ?>
+<?php endif; ?>
