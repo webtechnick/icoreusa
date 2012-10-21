@@ -18,8 +18,13 @@ class ContractorsController extends AppController {
 	public function index($filter = null){
 		if(!empty($this->request->data)){
 			$filter = $this->request->data['Contractor']['filter'];
+			if(!empty($this->request->data['Contractor']['search'])){
+				$conditions = $this->Contractor->getConditionsBySearch($this->request->data['Contractor']['search']);
+			}
 		}
-		$conditions = $this->Contractor->generateFilterConditions($filter);
+		if(empty($conditions)){
+			$conditions = $this->Contractor->generateFilterConditions($filter);
+		}
 		$this->set('contractors',$this->paginate('Contractor',$conditions));
 		$this->set('filter', $filter);
 	}
@@ -113,6 +118,8 @@ class ContractorsController extends AppController {
 		} else {
 			$this->request->data = $this->Contractor->read(null, $id);
 		}
+		$this->set('users', $this->Contractor->User->find('list'));
+		$this->set('images', $this->Contractor->Image->find('list'));
 	}
 
 /**
@@ -137,5 +144,14 @@ class ContractorsController extends AppController {
 		}
 		$this->Session->setFlash(__('Contractor was not deleted'));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	public function admin_geoloc($id = null){
+		if($this->Contractor->geoLoc($id)){
+			$this->goodFlash('Successful Geo Locate');
+		} else {
+			$this->badFlash('Unable to Geo Locate');
+		}
+		$this->redirect(array('action' => 'edit', $id));
 	}
 }

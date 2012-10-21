@@ -9,6 +9,9 @@ App::uses('AppModel', 'Model');
 class Contractor extends AppModel {
 	
 	public $displayField = 'email';
+	public $actsAs = array(
+		'WebTechNick.Rangeable'
+	);
 
 /**
  * Validation rules
@@ -26,6 +29,30 @@ class Contractor extends AppModel {
 			'notempty' => array(
 				'rule' => array('notempty'),
 				'message' => 'Please enter your last name',
+			),
+		),
+		'street' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please enter your street address',
+			),
+		),
+		'city' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please enter your city',
+			),
+		),
+		'state' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Please select your state',
+			),
+		),
+		'zip' => array(
+			'notempty' => array(
+				'rule' => array('postal', null, 'us'),
+				'message' => 'Please enter your zip',
 			),
 		),
 		'phone_number' => array(
@@ -86,9 +113,69 @@ class Contractor extends AppModel {
 	
 	public $searchFields = array('first_name','last_name','email','phone_number','description');
 	
+	/**
+	* Geoloc a contractor on the first save
+	*/
+	public function afterSave($created){
+		if($created){
+			$this->geoLoc();
+		}
+	}
+	
 	public function saveAll($data, $options = array()){
 		return parent::saveAll($data, $options);
 	}
+	
+	/**
+	* Geolocate by id.
+	* @param int id
+	*/
+	function geoLoc($id = null){
+		if($id) $this->id = $id;
+		if($this->id){
+			$Contractor = $this->find('first', array(
+				'conditions' => array('Contractor.id' => $this->id),
+				'fields' => array(
+					'Contractor.street',
+					'Contractor.street_2',
+					'Contractor.city',
+					'Contractor.state',
+					'Contractor.zip',
+				),
+				'contain' => array()
+			));
+			if(!empty($Contractor)){
+				$address = "{$Contractor['Contractor']['street']} {$Contractor['Contractor']['street_2']}, {$Contractor['Contractor']['city']}, {$Contractor['Contractor']['state']} {$Contractor['Contractor']['zip']}";
+				if($geoloc = $this->geoLocAddress($address)){
+					$this->saveField('lat', $geoloc['results'][0]['lat']);
+					$this->saveField('lon', $geoloc['results'][0]['lon']);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	/**
+	* Geoloc an address for me.
+	* @param string address fragment
+	* @return mixed result of geocode lookup
+	*/
+	function geoLocAddress($address){
+		$this->loadGeoLoc();
+		return $this->GeoLoc->byAddress($address);
+	}
+	
+	/**
+	* Loads the GeoLoc datasource into GeoLoc
+	*/
+	function loadGeoLoc(){
+		if(!$this->GeoLoc){
+			App::import('Core','ConnectionManager');
+			$this->GeoLoc = ConnectionManager::getDataSource('geoloc');
+		}
+	}
+	
 	/**
 	* Upgrade a contractor account
 	* @param int id

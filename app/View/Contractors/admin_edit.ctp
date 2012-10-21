@@ -21,6 +21,7 @@
 	<ul>
 
 		<li><?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $this->Form->value('Contractor.id')), null, __('Are you sure you want to delete # %s?', $this->Form->value('Contractor.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('GeoLoc'), array('action' => 'geoloc', $this->Form->value('Contractor.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Contractors'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Uploads'), array('controller' => 'uploads', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Image'), array('controller' => 'uploads', 'action' => 'add')); ?> </li>

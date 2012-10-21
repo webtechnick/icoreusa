@@ -73,4 +73,20 @@ class Upload extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	/**
+	* Only delete the upload if we're the original uploader
+	*/
+	public function restrictedDelete($id = null, $user_id = null){
+		if($id && $user_id){
+			$this->id = $id;
+			if($this->exists()){
+				$contractor_id = $this->Contractor->field('id', array('Contractor.user_id' => $user_id));
+				if(!empty($contractor_id)){
+					return $this->delete();
+				}
+			}
+		}
+		return false;
+	}
 }
