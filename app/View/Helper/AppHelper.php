@@ -31,4 +31,41 @@ App::uses('Helper', 'View');
  * @package       app.View.Helper
  */
 class AppHelper extends Helper {
+	/**
+  * Take a set of locations and split them evenly as we can
+  * @param array to split
+  * @return array of the resulting sets
+  */
+  function splitEvenly($array){
+  	$count = count($array);
+  	$by = ($count % 2) ? (int)($count/2) + 1 : (int)($count/2);
+
+  	if($by == $count){
+  		return array(
+  			$array,
+  			array()
+  		);
+  	}
+  	
+		return array_chunk($array, $by, true);
+  }
+  
+  /**
+  * Format the phone number
+  */
+  function formatNumber($sPhone){
+  	$extention = strpos($sPhone, "x");
+  	$sPhone = ereg_replace("[^0-9]",'',$sPhone);
+  	
+  	$sArea = substr($sPhone,0,3); 
+  	$sPrefix = substr($sPhone,3,3); 
+  	$sNumber = substr($sPhone,6,4);
+  	$retval = "($sArea) $sPrefix-$sNumber";
+  	if($extention){
+  		$ext = substr($sPhone,10,strlen($sPhone));
+  		$retval.= " x$ext";
+  	}
+  	
+  	return $retval; 
+  }
 }
