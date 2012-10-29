@@ -43,9 +43,19 @@ class AppModel extends Model {
 		$retval = array();
 		if($filter){
 			foreach($this->searchFields as $field){
-				$retval['OR']["$field LIKE"] = $pre . $filter . '%';
+				$retval['OR'][$this->alias . ".$field LIKE"] = $pre . $filter . '%';
 			}
 		}
 		return $retval;
+	}
+	
+	/**
+	* tests a string to see if it is a valid zip code
+	* @param string $input - (query)string which will be tested
+	* @return bool
+	*/
+	function isValidZip($input) {
+		$regex = '/^((\d{5}-\d{4})|(\d{5})|([AaBbCcEeGgHhJjKkLlMmNnPpRrSsTtVvXxYy]\d[A-Za-z]\s?\d[A-Za-z]\d))$/';
+		return (preg_match($regex,$input));
 	}
 }

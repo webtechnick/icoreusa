@@ -18,13 +18,8 @@ class ContractorsController extends AppController {
 	public function index($filter = null){
 		if(!empty($this->request->data)){
 			$filter = $this->request->data['Contractor']['filter'];
-			if(!empty($this->request->data['Contractor']['search'])){
-				$conditions = $this->Contractor->getConditionsBySearch($this->request->data['Contractor']['search']);
-			}
 		}
-		if(empty($conditions)){
-			$conditions = $this->Contractor->generateFilterConditions($filter);
-		}
+		$conditions = $this->Contractor->getConditionsBySearch($filter);
 		$this->set('contractors',$this->paginate('Contractor',$conditions));
 		$this->set('filter', $filter);
 	}

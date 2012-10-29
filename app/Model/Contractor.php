@@ -177,6 +177,25 @@ class Contractor extends AppModel {
 	}
 	
 	/**
+	* Get Conditions By Search
+	* @param string input
+	* @return array conditions
+	*/
+	public function getConditionsBySearch($input){
+		$retval = array();
+		if($this->isValidZip($input)){
+			$zip = ClassRegistry::init('Zip')->findByZip($input);
+			if(!empty($zip)){
+				$query = $this->getRangeQuery(array(), 20, $zip['Zip']['lat'], $zip['Zip']['lon']);
+				$retval = $query['conditions'];
+			}
+		} else {
+			$retval = $this->generateFilterConditions($input);
+		}
+		return $retval;
+	}
+	
+	/**
 	* Upgrade a contractor account
 	* @param int id
 	*/
@@ -199,5 +218,4 @@ class Contractor extends AppModel {
 		}
 		return false;
 	}
-
 }
